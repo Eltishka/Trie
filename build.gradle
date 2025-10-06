@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'io.freefair.lombok' version '8.4'
     id 'jacoco'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 jar {
@@ -31,6 +32,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 test {
     useJUnitPlatform()
@@ -59,4 +61,7 @@ jacocoTestReport {
             ])
         }))
     }
+}
+kotlin {
+    jvmToolchain(22)
 }

@@ -11,4 +11,8 @@ public interface TrieRegistry {
     String getRandomChildAddress(String prefix, Character character);
     List<String> getReplicasByPrefix(String prefix);
     TrieNode getTrieNode(String prefix);
+    int getTrieNodeHash(String prefix);
+    boolean containsReplica(String prefix, String replicaAddress);
+
+    Integer getChildHash(String prefix, Character next);
 }

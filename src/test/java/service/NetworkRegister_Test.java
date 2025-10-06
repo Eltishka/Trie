@@ -61,7 +61,7 @@ public class NetworkRegister_Test {
 
         System.out.println("Bootstrap node logs:\n" + bootstrapNode.getLogs());
 
-        assertTrue(logs2.contains("Found useraddress - FindResponse[result=first, path=[bootstrap, bootstrap, bootstrap, bootstrap, bootstrap, bootstrap]]"));
+        assertTrue(logs2.contains("Found user address - FindResponse[result=first, path=[bootstrap, bootstrap, bootstrap, bootstrap, bootstrap, bootstrap]]"));
 
 
     }

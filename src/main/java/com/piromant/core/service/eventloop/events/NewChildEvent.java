@@ -10,4 +10,5 @@ public class NewChildEvent implements Event{
     private final String prefix;
     private final Character next;
     private final String childAddress;
+    private final int parentHash;
 }

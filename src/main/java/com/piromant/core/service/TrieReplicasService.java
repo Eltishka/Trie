@@ -4,6 +4,7 @@ import com.piromant.core.dal.TrieContainer;
 import com.piromant.core.model.trie.TrieNode;
 import com.piromant.core.service.eventloop.EventManager;
 import com.piromant.core.service.eventloop.events.NewReplicaEvent;
+import com.piromant.dto.request.GetTrieNodeRequest;
 import com.piromant.dto.request.NewReplicaRequest;
 import lombok.AllArgsConstructor;
 
@@ -13,7 +14,18 @@ public class TrieReplicasService {
     private final TrieContainer trieContainer;
     private final EventManager eventManager;
 
-    public boolean addNewReplica(NewReplicaRequest newReplicaRequest) {//TODO not ddos-saved. Check sender. Check newReplica
+    public boolean addReplica(NewReplicaRequest newReplicaRequest) {
+
+        String prefix = newReplicaRequest.prefix();
+
+        if(!this.trieContainer.containsPrefix(prefix)) {
+            return false;
+        }
+
+        if(this.trieContainer.getTrieNodeHash(prefix) != newReplicaRequest.hash()) {
+            return false; //ask trienode for hash mb
+        }
+
         boolean success =
                 this.trieContainer.addReplicaForPrefix(newReplicaRequest.prefix(), newReplicaRequest.address());
         if (!success) {
@@ -23,11 +35,22 @@ public class TrieReplicasService {
         return true;
     }
 
-    public TrieNode getTrieNodeForPrefix(String prefix) {//TODO implement. Who is asking, Ddos-save
+    public TrieNode getTrieNodeForPrefix(GetTrieNodeRequest getTrieNodeRequest) {
+        String prefix = getTrieNodeRequest.prefix();
+
+        if(prefix.isEmpty()) {
+            return this.trieContainer.getTrieNode("");
+        }
+
+        if(!this.trieContainer.containsPrefix(prefix)) {
+            return null;
+        }
+
+        if(this.trieContainer.getTrieNodeHash(prefix) != getTrieNodeRequest.hash()) {
+            return null;
+        }
+
         return this.trieContainer.getTrieNode(prefix);
     }
 
-    public String hashedTrieNodeForPrefix(String prefix) { //TODO implement
-        return "";
-    }
 }

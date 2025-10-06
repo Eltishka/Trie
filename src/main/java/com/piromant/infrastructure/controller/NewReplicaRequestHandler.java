@@ -16,6 +16,6 @@ public class NewReplicaRequestHandler implements Handler {
 
     @Override
     public Object handle(Object request) {
-        return replicasService.addNewReplica((NewReplicaRequest) request);
+        return replicasService.process((NewReplicaRequest) request);
     }
 }

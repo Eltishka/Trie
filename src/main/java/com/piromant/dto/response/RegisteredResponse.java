@@ -1,31 +1,27 @@
 package com.piromant.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-public record FindResponse(String result, List<String> path) implements Comparable<FindResponse>, Response {
-
+public record RegisteredResponse(Boolean registered, List<String> path) implements Comparable<RegisteredResponse>, Response {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        FindResponse that = (FindResponse) o;
-        return Objects.equals(result, that.result);
+        RegisteredResponse that = (RegisteredResponse) o;
+        return Objects.equals(registered, that.registered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(result);
+        return Objects.hashCode(registered);
     }
 
     @Override
-    public int compareTo(FindResponse o) {
-        return Comparator.nullsFirst(String::compareTo).compare(this.result, o.result);
+    public int compareTo(RegisteredResponse o) {
+        return Comparator.nullsFirst(Boolean::compareTo).compare(this.registered, o.registered);
     }
 
     @Override
